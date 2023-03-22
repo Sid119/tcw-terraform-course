@@ -25,11 +25,5 @@ jobs:
             --sarif-file-output=terraform.snyk.scan
           sarif: false
           
-      - 
-        name: Upload sarif file for github scanning
-        if: always()
-        uses: github/codeq1-actions/upload-sarif@v1
-        with:
-          sarif_file: terraform.snyk.scan
-   
+  
            
