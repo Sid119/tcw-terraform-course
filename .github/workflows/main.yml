@@ -1,29 +1,16 @@
-name: ci
-
-on:
-  workflow_dispatch:
-  
+name: Example workflow for Snyk Infrastructure as Code
+on: 
+    workflow_dispatch:
 jobs:
-  terraform:
+  security:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-       working-directory: ./lecture_2
-    env:
-      TF_WORKSPACE: main
     steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v2
-      -
-        name: Vulnerability scan of terraform configration file
+      - uses: actions/checkout@v2
+      - name: Run Snyk to check Kubernetes manifest file for issues
         uses: snyk/actions/iac@master
         env:
-           SNYK_TOKEN: ${{secrets.SNYK_TOKEN}}
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --severity-threshold=low
-            --sarif-file-output=terraform.snyk.scan
-          sarif: false
-          
+          args: --severity-threshold=low  
   
            
